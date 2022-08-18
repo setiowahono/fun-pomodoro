@@ -4,15 +4,23 @@ import { TimerOutline, ReloadCircleOutline, PlayCircleOutline } from 'react-ioni
 const ComponentItem = props => {
     return (
         <>
-            <div onClick={props.started ? () => window.location.reload() : props.start}>
+            <div className='text-center'>
                 <div>
                     <span style={{ fontSize: 96 }}>
-                        {props.started ? props.counter : '0'}
+                        {new Date(props.counter * 1000).toISOString().slice(14, 19)}
                     </span>
                 </div>
-                {props.started ?
-                    <div style={{ cursor: 'pointer' }}><ReloadCircleOutline width='28px' height='28px' /></div> :
-                    <div style={{ cursor: 'pointer' }}><PlayCircleOutline width='28px' height='28px' /></div>}
+                <div>
+                    <ReloadCircleOutline width='28px' height='28px'
+                        cssClasses={'m-2'}
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => window.location.reload()} />
+                    {props.started ? '' :
+                        <PlayCircleOutline width='28px' height='28px'
+                            cssClasses={'m-2'}
+                            style={{ cursor: 'pointer' }}
+                            onClick={props.start} />}
+                </div>
             </div>
         </>
     );
