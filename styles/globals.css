@@ -1,0 +1,22 @@
+html,
+body,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+span,
+label {
+  font-family: 'Inter', sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
