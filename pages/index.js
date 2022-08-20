@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import Button from '../components/Button';
 import Navbar from '../components/Navbar';
 import Timer from '../components/Timer';
-import { CloseOutline, CheckmarkOutline } from 'react-ionicons';
 
 export default function Home() {
     const [started, setStarted] = useState(false);
@@ -32,42 +32,50 @@ export default function Home() {
         setInterval(decrease, 1000);
     }
 
+    const TimeBadge = props => {
+        return (
+            <>
+                <span className='m-2' onClick={() => timerOption(props.timeBadge)} style={{ cursor: 'pointer' }}>
+                    <span className={timeBadge === props.timeBadge ? 'badge rounded-pill bg-dark' : ''}>
+                        {props.timeBadge / 60}m
+                    </span>
+                </span>
+            </>
+        )
+    }
+
     return (
         <>
-            <main className='d-flex justify-content-center align-items-center' style={{ height: '100vh' }}>
-                <div style={{ maxWidth: 540 }}>
+            <main className='d-flex align-items-center' style={{ width: '100%', height: '100vh' }}>
+                <div className='mx-auto' style={{ maxWidth: 540 }}>
                     <Navbar
                         counter={time}
                         focus={focus} />
                     <Timer
-                        started={started}
-                        start={start}
                         counter={time} />
-                    <div className='text-center mt-5 mb-3'>
+                    <div className='text-center mb-3'>
                         <div style={{ fontSize: 18 }}>
-                            <span className='m-2' onClick={() => timerOption(1500)} style={{ cursor: 'pointer' }}>
-                                <span className={timeBadge === 1500 ? 'badge rounded-pill bg-dark' : ''}>25m</span>
-                            </span>
-                            <span className='m-2' onClick={() => timerOption(900)} style={{ cursor: 'pointer' }}>
-                                <span className={timeBadge === 900 ? 'badge rounded-pill bg-dark' : ''}>15m</span>
-                            </span>
-                            <span className='m-2' onClick={() => timerOption(300)} style={{ cursor: 'pointer' }}>
-                                <span className={timeBadge === 300 ? 'badge rounded-pill bg-dark' : ''}>5m</span>
-                            </span>
+                            <TimeBadge timeBadge={1500} />
+                            <TimeBadge timeBadge={900} />
+                            <TimeBadge timeBadge={300} />
                         </div>
                     </div>
                     <div className='text-center mb-3'>
                         <input
                             type='text'
-                            className='form-control text-center'
+                            className='form-control text-center mx-auto'
                             placeholder='What are you focusing on?'
                             onChange={onChangeHandler}
                             value={focus}
-                            readOnly={started ? true : false} />
+                            readOnly={started ? true : false}
+                            style={{ width: 250 }} />
                     </div>
+                    <Button
+                        started={started}
+                        start={start} />
                     {done ?
                         <div
-                            className='text-center'
+                            className='text-center mt-3'
                             style={{ fontSize: 18, fontWeight: 'bold' }}>
                             <span>Done!</span>
                         </div> : ''}
